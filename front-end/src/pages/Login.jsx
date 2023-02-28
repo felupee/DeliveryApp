@@ -14,7 +14,6 @@ function Login() {
         type="password"
         data-testid="common_login__input-password"
       />
-
       <button
         type="submit"
         data-testid="common_login__button-login"
@@ -27,7 +26,6 @@ function Login() {
       >
         Registrar
       </button>
-
     </div>
   );
 }
