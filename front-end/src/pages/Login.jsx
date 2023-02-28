@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const minPwdLength = 6;
@@ -12,6 +13,8 @@ function Login() {
     hasChanged: false,
     value: '',
   });
+
+  const navigate = useNavigate();
 
   const isEmailValid = (em) => /\S+@\S+\.\S+/.test(em);
 
@@ -63,6 +66,7 @@ function Login() {
       <button
         type="submit"
         data-testid="common_login__button-register"
+        onClick={ () => navigate('/register') }
       >
         Registrar
       </button>
