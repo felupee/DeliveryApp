@@ -1,6 +1,8 @@
 import React from 'react';
 
 function Login() {
+  // const [email, setEmail] = React.useState('');
+  // const [password, setPassword] = React.useState('');
   return (
     <div>
       <input
