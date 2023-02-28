@@ -3,6 +3,7 @@ import React from 'react';
 function Login() {
   // const [email, setEmail] = React.useState('');
   // const [password, setPassword] = React.useState('');
+
   return (
     <div>
       <input
@@ -13,6 +14,7 @@ function Login() {
         type="password"
         data-testid="common_login__input-password"
       />
+
       <button
         type="submit"
         data-testid="common_login__button-login"
@@ -25,6 +27,7 @@ function Login() {
       >
         Registrar
       </button>
+
     </div>
   );
 }
