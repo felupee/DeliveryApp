@@ -16,9 +16,15 @@ export default function Register() {
 
   const isDisabled = verifyInputs();
 
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    // lógica para envio dos dados para a API
+  };
+
   return (
     <section>
-      <form>
+      <form onSubmit={ handleRegister }>
         <input
           type="text"
           data-testid="common_register__input-name"
