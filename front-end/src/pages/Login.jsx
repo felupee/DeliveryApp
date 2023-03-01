@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import MainContext from '../Context/MainContext';
 
 // const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const minPwdLength = 6;
@@ -13,7 +16,9 @@ function Login() {
     value: '',
   });
 
-  const isEmailValid = (em) => /\S+@\S+\.\S+/.test(em);
+  const { isEmailValid } = useContext(MainContext);
+
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -63,6 +68,7 @@ function Login() {
       <button
         type="submit"
         data-testid="common_login__button-register"
+        onClick={ () => navigate('/register') }
       >
         Registrar
       </button>
