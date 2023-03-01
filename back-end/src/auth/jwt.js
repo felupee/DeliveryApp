@@ -8,4 +8,4 @@ const jwtConfig = {
 
 const tokenCreation = (payload) => jwt.sign(payload, secret, jwtConfig);
 
-module.exports = {tokenCreation};
+module.exports = { tokenCreation };
