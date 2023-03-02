@@ -1,11 +1,15 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import MainContext from '../Context/MainContext';
 
 export default function Register() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userExists, setUserExists] = useState(false);
 
+  const navigate = useNavigate();
   const { isEmailValid } = useContext(MainContext);
 
   const minFullNameLength = 12;
@@ -16,12 +20,22 @@ export default function Register() {
 
   const isDisabled = verifyInputs();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-
-    // lógica para envio dos dados para a API
+    axios.post('http://localhost:3001/register', {
+      name: fullName, email, password,
+    }).then((response) => {
+      console.log(response.data);
+      setFullName('');
+      setEmail('');
+      setPassword('');
+      navigate('/customer/products');
+    })
+      .catch((error) => {
+        console.log(error);
+        setUserExists(true);
+      });
   };
-
   return (
     <section>
       <form onSubmit={ handleRegister }>
@@ -37,13 +51,16 @@ export default function Register() {
           data-testid="common_register__input-email"
           placeholder="Digite seu email"
           value={ email }
-          onChange={ ({ target }) => setEmail(target.value) }
+          onChange={ ({ target }) => {
+            setEmail(target.value);
+            setUserExists(false);
+          } }
         />
         {
-          email && !isEmailValid(email)
+          (email && !isEmailValid(email)) || userExists
             ? (
               <p
-                data-testid=" common_register__element-invalid_register"
+                data-testid="common_register__element-invalid_register"
               >
                 Email inválido
               </p>
