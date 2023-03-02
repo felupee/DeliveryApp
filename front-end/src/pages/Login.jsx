@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from '../api';
 
 import MainContext from '../Context/MainContext';
 
@@ -15,10 +16,27 @@ function Login() {
     hasChanged: false,
     value: '',
   });
+  const [loginResponse, setLoginResponse] = React.useState('initial');
 
   const { isEmailValid } = useContext(MainContext);
 
   const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await api.post('/login', {
+        email: email.value,
+        password: password.value,
+      });
+      setLoginResponse(response.data);
+      navigate('/customer/products');
+    } catch (error) {
+      console.log(error.message);
+      setLoginResponse(null);
+    }
+  };
 
   return (
     <div>
@@ -61,6 +79,7 @@ function Login() {
       <button
         type="submit"
         data-testid="common_login__button-login"
+        onClick={ handleLogin }
         disabled={ !isEmailValid(email.value) || password.value.length < minPwdLength }
       >
         Entrar
@@ -72,6 +91,17 @@ function Login() {
       >
         Registrar
       </button>
+      {
+        !loginResponse
+          ? (
+            <p
+              data-testid="common_login__element-invalid-email"
+            >
+              Email ou senha inválidos
+            </p>
+          )
+          : null
+      }
     </div>
   );
 }
