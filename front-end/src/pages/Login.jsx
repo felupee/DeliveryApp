@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import api from '../api';
 
 import MainContext from '../Context/MainContext';
@@ -16,11 +17,16 @@ function Login() {
     hasChanged: false,
     value: '',
   });
-  const [loginResponse, setLoginResponse] = React.useState('initial');
+  const [isUserValid, setIsUserValid] = useState(true);
 
-  const { isEmailValid } = useContext(MainContext);
+  const { isEmailValid, setStorageData, setUser } = useContext(MainContext);
 
   const navigate = useNavigate();
+
+  const resetInputs = () => {
+    setEmail({ hasChanged: false, value: '' });
+    setPassword({ hasChanged: false, value: '' });
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,11 +36,13 @@ function Login() {
         email: email.value,
         password: password.value,
       });
-      setLoginResponse(response.data);
+      setStorageData(response.data);
+      setUser(response.data);
       navigate('/customer/products');
     } catch (error) {
       console.log(error.message);
-      setLoginResponse(null);
+      setIsUserValid(false);
+      resetInputs();
     }
   };
 
@@ -92,7 +100,7 @@ function Login() {
         Registrar
       </button>
       {
-        !loginResponse
+        !isUserValid
           ? (
             <p
               data-testid="common_login__element-invalid-email"
