@@ -7,6 +7,7 @@ export default function Register() {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userExists, setUserExists] = useState(false);
 
   const navigate = useNavigate();
   const { isEmailValid } = useContext(MainContext);
@@ -32,6 +33,7 @@ export default function Register() {
     })
       .catch((error) => {
         console.log(error);
+        setUserExists(true);
       });
   };
   return (
@@ -49,13 +51,16 @@ export default function Register() {
           data-testid="common_register__input-email"
           placeholder="Digite seu email"
           value={ email }
-          onChange={ ({ target }) => setEmail(target.value) }
+          onChange={ ({ target }) => {
+            setEmail(target.value);
+            setUserExists(false);
+          } }
         />
         {
-          email && !isEmailValid(email)
+          (email && !isEmailValid(email)) || userExists
             ? (
               <p
-                data-testid=" common_register__element-invalid_register"
+                data-testid="common_register__element-invalid_register"
               >
                 Email inválido
               </p>
