@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import MainContext from '../Context/MainContext';
 
 export default function Navbar() {
-  const { storageData, setStorageData, user } = useContext(MainContext);
-
-  const userName = user.name || storageData.name;
+  const { storageData, setStorageData } = useContext(MainContext);
 
   return (
     <nav>
@@ -22,11 +20,11 @@ export default function Navbar() {
         Meus pedidos
       </Link>
       <span data-testid="customer_products__element-navbar-user-full-name">
-        {userName}
+        {storageData.name}
       </span>
       <Link
-        onClick={ () => setStorageData('') }
-        to="/"
+        onClick={ () => setStorageData(undefined) }
+        to="/login"
         data-testid="customer_products__element-navbar-link-logout"
       >
         Sair

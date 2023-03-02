@@ -6,8 +6,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 function MainProvider({ children }) {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
-  const [user, setUser] = useState({});
-  const [storageData, setStorageData] = useLocalStorage('user', {});
+  const [storageData, setStorageData] = useLocalStorage('user', undefined);
 
   const isEmailValid = (em) => /\S+@\S+\.\S+/.test(em);
 
@@ -18,11 +17,9 @@ function MainProvider({ children }) {
     setProducts,
     storageData,
     setStorageData,
-    user,
-    setUser,
     isEmailValid,
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [users, products]);
+  }), [users, products, storageData]);
 
   return (
     <MainContext.Provider value={ value }>

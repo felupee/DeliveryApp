@@ -19,7 +19,7 @@ function Login() {
   });
   const [isUserValid, setIsUserValid] = useState(true);
 
-  const { isEmailValid, setStorageData, setUser } = useContext(MainContext);
+  const { isEmailValid, setStorageData } = useContext(MainContext);
 
   const navigate = useNavigate();
 
@@ -37,7 +37,6 @@ function Login() {
         password: password.value,
       });
       setStorageData(response.data);
-      setUser(response.data);
       navigate('/customer/products');
     } catch (error) {
       console.log(error.message);
