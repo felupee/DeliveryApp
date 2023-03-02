@@ -31,6 +31,7 @@ function Login() {
         password: password.value,
       });
       setLoginResponse(response.data);
+      navigate('/customer/products');
     } catch (error) {
       console.log(error.message);
       setLoginResponse(null);
