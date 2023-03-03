@@ -6,7 +6,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 function MainProvider({ children }) {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
-  const [storageData, setStorageData] = useLocalStorage('user', undefined);
+  const [storageData, setStorageData] = useLocalStorage('user', '');
 
   const isEmailValid = (em) => /\S+@\S+\.\S+/.test(em);
 
