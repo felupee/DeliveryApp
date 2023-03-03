@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import MainContext from '../Context/MainContext';
 
 export default function Navbar() {
-  const { storageData, setStorageData } = useContext(MainContext);
+  const { storageData } = useContext(MainContext);
 
   return (
     <nav>
@@ -23,7 +23,7 @@ export default function Navbar() {
         {storageData.name}
       </span>
       <Link
-        onClick={ () => setStorageData(undefined) }
+        onClick={ () => localStorage.clear() }
         to="/login"
         data-testid="customer_products__element-navbar-link-logout"
       >
