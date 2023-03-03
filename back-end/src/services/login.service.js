@@ -9,7 +9,7 @@ const postLogin = async (login) => {
     const passwordValidation = (userExists.password === md5(password));
     if (!passwordValidation) return { code: 404 };
     const token = tokenCreation({ email, password });
-    return { code: 200, result: { token } };
+    return { code: 200, result: { name: userExists.name, email, role: userExists.role, token } };
 };
 
 module.exports = { postLogin };
