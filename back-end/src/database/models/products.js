@@ -19,13 +19,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.NUMBER,
       allowNull: false,
     },
-    urlImage: {
+    url_image: {
       type: DataTypes.STRING,
       allowNull: false,
     }
   }, {
     sequelize,
-    modelName: 'Products',
+    tableName: 'products',
+    timestamps: false,
   });
+
   return Products;
 };

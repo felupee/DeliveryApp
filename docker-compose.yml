@@ -1,5 +1,29 @@
 version: '3.9'
 services:
+  node:
+    # Imagem base do container
+    image: node:16
+    # Nome do container para facilitar execução
+    container_name: app-delivey
+    # Mesmo que `docker run -t`
+    tty: true
+    # Mesmo que `docker run -i`
+    stdin_open: true
+    # Substitui o comando padrão da imagem do node
+    command: bash
+    # Restarta a imagem caso algo a faça parar
+    restart: always
+    # Diretório padrão de execução
+    working_dir: /app
+    environment:
+      HOSTNAME: db
+    # Lista de volumes (diretórios) mapeados de fora para dentro do container
+    volumes:
+      # Monta o diretório atual, com todos os dados do projeto, 
+      # dentro do diretório /app
+      - ./:/app
+    ports:
+      - 3001:3001
   db:
     image: mysql:8.0.21
     container_name: delivery-app-db
