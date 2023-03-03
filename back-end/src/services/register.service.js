@@ -7,7 +7,7 @@ const postUser = async (newUser) => {
     const hash = md5(password);
     const userExists = await User.findOne({ where: { email } });
     if (userExists) return { code: 409 };
-    await User.create({ ...newUser, password: hash });
+    await User.create({ ...newUser, password: hash, role: 'customer' });
     const token = tokenCreation({ email, password });
     return { code: 201, result: { token } };
 };
