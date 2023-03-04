@@ -37,7 +37,8 @@ function Login() {
         password: password.value,
       });
       setStorageData(response.data);
-      navigate('/customer/products');
+      const { role } = response.data;
+      navigate(role === 'administrator' ? '/admin/manage' : '/customer/products');
     } catch (error) {
       console.log(error.message);
       setIsUserValid(false);
