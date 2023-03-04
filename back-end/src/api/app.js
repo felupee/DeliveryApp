@@ -13,6 +13,6 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 app.use('/login', loginRoute);
 app.use('/products', productRoute);
 app.use('/register', registerRoute);
-app.unsubscribe('/admin/manage');
+app.use('/admin/manage', adminRoute);
 
 module.exports = app;

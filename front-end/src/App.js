@@ -4,6 +4,7 @@ import './App.css';
 import Customer from './pages/Customer';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Admin from './pages/Admin';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path="/login" element={ <Login /> } />
       <Route path="/register" element={ <Register /> } />
       <Route path="/customer/products" element={ <Customer /> } />
+      <Route path="/admin/manage" element={ <Admin /> } />
     </Routes>
   );
 }
