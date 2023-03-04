@@ -24,7 +24,7 @@ export default function ProductCard({ product }) {
         { price }
       </p>
       <Button symbol="-" id={ product.id } type="rm" />
-      <Input type="number" id={ product.id } />
+      <Input type="number" id={ product.id } value={ 0 } />
       <Button symbol="+" id={ product.id } type="add" />
     </div>
   );
