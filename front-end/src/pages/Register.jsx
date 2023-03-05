@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import MainContext from '../Context/MainContext';
+import api from '../api';
 
 export default function Register() {
   const [fullName, setFullName] = useState('');
@@ -10,7 +10,7 @@ export default function Register() {
   const [userExists, setUserExists] = useState(false);
 
   const navigate = useNavigate();
-  const { isEmailValid } = useContext(MainContext);
+  const { isEmailValid, setStorageData } = useContext(MainContext);
 
   const minFullNameLength = 12;
   const minPwdLength = 6;
@@ -20,15 +20,20 @@ export default function Register() {
 
   const isDisabled = verifyInputs();
 
+  const resetInputs = () => {
+    setFullName('');
+    setEmail('');
+    setPassword('');
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/register', {
+
+    api.post('/register', {
       name: fullName, email, password,
     }).then((response) => {
-      console.log(response.data);
-      setFullName('');
-      setEmail('');
-      setPassword('');
+      resetInputs();
+      setStorageData(response.data);
       navigate('/customer/products');
     })
       .catch((error) => {

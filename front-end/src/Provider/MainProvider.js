@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MainContext from '../Context/MainContext';
 import useLocalStorage from '../hooks/useLocalStorage';
+import api from '../api';
 
 function MainProvider({ children }) {
   const [users, setUsers] = useState([]);
@@ -9,6 +10,14 @@ function MainProvider({ children }) {
   const [storageData, setStorageData] = useLocalStorage('user', '');
 
   const isEmailValid = (em) => /\S+@\S+\.\S+/.test(em);
+
+  useEffect(() => {
+    api.get('/products').then((response) => {
+      setProducts(response.data);
+    }).catch((error) => {
+      console.log(error.message);
+    });
+  }, []);
 
   const value = useMemo(() => ({
     users,
