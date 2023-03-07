@@ -5,7 +5,6 @@ import api from '../api';
 
 import MainContext from '../Context/MainContext';
 
-// const REGEX_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const minPwdLength = 6;
 
 function Login() {
@@ -58,10 +57,6 @@ function Login() {
           (e) => setEmail({ ...email, hasChanged: true, value: e.target.value })
         }
       />
-      {/* {
-        !REGEX_EMAIL.test(email) && email.length > 10
-        && <p data-testid="common_login__input-email-error">Email inválido</p>
-      } */}
       {
         email.hasChanged && !email.value
         && <p>Email Obrigatório</p>
