@@ -1,21 +1,23 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
 import MainContext from '../Context/MainContext';
+import api from '../api';
 
 export default function Admin() {
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [userExists, setUserExists] = useState(false);
-  const [selectedRole, setSelectedRole] = useState('customer');
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'customer',
+    userExists: false,
+  });
 
   const { isEmailValid, storageData } = useContext(MainContext);
 
   const minFullNameLength = 12;
   const minPwdLength = 6;
 
-  const verifyInputs = () => !isEmailValid(email)
-  || fullName.length < minFullNameLength || password.length < minPwdLength;
+  const verifyInputs = () => !isEmailValid(user.email)
+  || user.name.length < minFullNameLength || user.password.length < minPwdLength;
 
   const isDisabled = verifyInputs();
 
@@ -27,42 +29,48 @@ export default function Admin() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/admin/manage', {
-      name: fullName, email, password, role: selectedRole,
-    }, config).then((response) => {
-      console.log(response.data);
-      setFullName('');
-      setEmail('');
-      setPassword('');
-      setSelectedRole('Customer');
-    })
+    api.post('/admin/manage', user, config)
+      .then(() => {
+        setUser({
+          name: '',
+          email: '',
+          password: '',
+          role: 'customer',
+          userExists: false,
+        });
+      })
       .catch((error) => {
         console.log(error);
-        setUserExists(true);
+        setUser({ ...user, userExists: true });
       });
   };
+
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setUser({ ...user, [name]: value });
+  };
+
   return (
     <section>
       <form onSubmit={ handleRegister }>
         <input
           type="text"
+          name="name"
           data-testid="admin_manage__input-name"
           placeholder="Digite seu nome completo"
-          value={ fullName }
-          onChange={ ({ target }) => setFullName(target.value) }
+          value={ user.name }
+          onChange={ handleChange }
         />
         <input
-          type="text"
+          type="email"
+          name="email"
           data-testid="admin_manage__input-email"
           placeholder="Digite seu email"
-          value={ email }
-          onChange={ ({ target }) => {
-            setEmail(target.value);
-            setUserExists(false);
-          } }
+          value={ user.email }
+          onChange={ handleChange }
         />
         {
-          (email && !isEmailValid(email)) || userExists
+          (user.email && !isEmailValid(user.email)) || user.userExists
             ? (
               <p
                 data-testid="admin_manage__element-invalid-register"
@@ -73,17 +81,19 @@ export default function Admin() {
             : null
         }
         <input
-          type="text"
+          type="password"
+          name="password"
           data-testid="admin_manage__input-password"
           placeholder="Digite uma senha"
-          value={ password }
-          onChange={ ({ target }) => setPassword(target.value) }
+          value={ user.password }
+          onChange={ handleChange }
         />
         <select
           type="select"
+          name="role"
           data-testid="admin_manage__select-role"
-          value={ selectedRole }
-          onChange={ ({ target }) => setSelectedRole(target.value) }
+          value={ user.selectedRole }
+          onChange={ handleChange }
         >
           <option value="seller">Vendedor</option>
           <option value="customer">Cliente</option>

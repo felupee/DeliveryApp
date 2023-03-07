@@ -12,4 +12,12 @@ const postLogin = async (login) => {
     return { code: 200, result: { name: userExists.name, email, role: userExists.role, token } };
 };
 
-module.exports = { postLogin };
+const getAllUser = async () => {
+  const users = await User.findAll();
+  return users;
+}
+
+module.exports = {
+  postLogin,
+  getAllUser,
+};
