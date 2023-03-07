@@ -6,6 +6,10 @@ import Input from './Input';
 export default function ProductCard({ product }) {
   const price = product.price.replace('.', ',');
 
+  const test = (id, value) => {
+    console.log(id, value);
+  };
+
   return (
     <div>
       <h3
@@ -25,7 +29,7 @@ export default function ProductCard({ product }) {
       </p>
       <Button symbol="-" id={ product.id } type="rm" />
       <Input type="number" id={ product.id } value={ 0 } />
-      <Button symbol="+" id={ product.id } type="add" />
+      <Button symbol="+" id={ product.id } type="add" onClick={ test } />
     </div>
   );
 }
