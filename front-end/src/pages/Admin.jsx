@@ -70,15 +70,14 @@ export default function Admin() {
           onChange={ handleChange }
         />
         {
-          (user.email && !isEmailValid(user.email)) || user.userExists
-            ? (
+          ((user.email && !isEmailValid(user.email)) || user.userExists)
+            && (
               <p
                 data-testid="admin_manage__element-invalid-register"
               >
                 Email inválido
               </p>
             )
-            : null
         }
         <input
           type="password"

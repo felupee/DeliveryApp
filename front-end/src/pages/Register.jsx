@@ -46,7 +46,7 @@ export default function Register() {
     })
       .catch((error) => {
         console.log(error);
-        setUserExists(true);
+        setUser({ ...user, userExists: true });
       });
   };
 
@@ -75,15 +75,14 @@ export default function Register() {
           onChange={ handleChange }
         />
         {
-          (user.email && !isEmailValid(user.email)) || user.userExists
-            ? (
-              <p
-                data-testid="common_register__element-invalid_register"
-              >
-                Email inválido
-              </p>
-            )
-            : null
+          ((user.email && !isEmailValid(user.email)) || user.userExists)
+          && (
+            <p
+              data-testid="common_register__element-invalid_register"
+            >
+              Email inválido
+            </p>
+          )
         }
         <input
           type="password"

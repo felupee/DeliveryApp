@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Input({ type, value, onChange, id }) {
+function Input({ type, value, onChange, name }) {
   return (
     <input
-      data-testid={ `customer_products__input-card-quantity-${id}` }
       type={ type }
+      name={ name }
       value={ value }
       onChange={ onChange }
     />
@@ -14,6 +14,7 @@ function Input({ type, value, onChange, id }) {
 
 Input.propTypes = {
   type: PropTypes.string,
+  name: PropTypes.string,
   value: PropTypes.number,
   onChange: PropTypes.func,
   id: PropTypes.number,

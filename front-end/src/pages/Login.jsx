@@ -96,14 +96,13 @@ function Login() {
       </button>
       {
         !isUserValid
-          ? (
+          && (
             <p
               data-testid="common_login__element-invalid-email"
             >
               Email ou senha inválidos
             </p>
           )
-          : null
       }
     </div>
   );

@@ -5,7 +5,7 @@ const { tokenCreation } = require('../auth/jwt');
 const postUser = async (newUser) => {
     const { name, email, password } = newUser;
     const hash = md5(password);
-    const userExists = await User.findOne({ where: { email } });
+    const userExists = await User.findOne({ where: { email, name } });
     if (userExists) return { code: 409 };
     await User.create({ ...newUser, password: hash, role: 'customer' });
     const token = tokenCreation({ email, password });
