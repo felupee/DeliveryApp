@@ -15,7 +15,7 @@ const postLogin = async (login) => {
 const getAllUser = async () => {
   const users = await User.findAll();
   return users;
-}
+};
 
 module.exports = {
   postLogin,

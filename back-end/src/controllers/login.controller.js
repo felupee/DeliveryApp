@@ -9,7 +9,7 @@ const postLogin = async (req, res) => {
 const getAllUser = async (_req, res) => {
   const login = await loginService.getAllUser();
   res.status(200).json(login);
-}
+};
 
 module.exports = { 
     postLogin,
