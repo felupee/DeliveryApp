@@ -7,7 +7,7 @@ const addItem = 1;
 function Button({ symbol, onClick, id, type }) {
   const handleClick = () => {
     if (type === 'add') return onClick(id, addItem);
-    if (type === 'rm') return onClick(id, rmItem);
+    if (type === 'rm') return onClick(id, rmItem - 1);
   };
 
   return (

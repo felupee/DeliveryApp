@@ -3,11 +3,28 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 import Input from './Input';
 
-export default function ProductCard({ product }) {
-  const price = product.price.replace('.', ',');
+function ProductCard({ product }) {
+  const [count, setCount] = React.useState(1);
 
-  const test = (id, value) => {
-    console.log(id, value);
+  const price = parseFloat(product.price);
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    if (count > 1) {
+      setCount(count - 1);
+    }
+  };
+
+  const calculatePrice = () => {
+    if (count === 0) {
+      return price;
+    }
+
+    const total = price * +count;
+    return total.toFixed(2).toString().replace('.', ',');
   };
 
   return (
@@ -25,11 +42,11 @@ export default function ProductCard({ product }) {
       <p
         data-testid={ `customer_products__element-card-price-${product.id}` }
       >
-        { price }
+        { calculatePrice() }
       </p>
-      <Button symbol="-" id={ product.id } type="rm" />
+      <Button symbol="-" id={ product.id } type="rm" onClick={ decrement } />
       <Input type="number" id={ product.id } value={ 0 } />
-      <Button symbol="+" id={ product.id } type="add" onClick={ test } />
+      <Button symbol="+" id={ product.id } type="add" onClick={ increment } />
     </div>
   );
 }
@@ -42,3 +59,5 @@ ProductCard.propTypes = {
     url_image: PropTypes.string,
   }),
 }.isRequired;
+
+export default ProductCard;
