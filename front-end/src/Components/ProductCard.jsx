@@ -42,11 +42,29 @@ function ProductCard({ product }) {
       <p
         data-testid={ `customer_products__element-card-price-${product.id}` }
       >
-        { calculatePrice() }
+        <span>
+          {' '}
+          {calculatePrice()}
+        </span>
       </p>
-      <Button symbol="-" id={ product.id } type="rm" onClick={ decrement } />
-      <Input type="number" id={ product.id } value={ 0 } />
-      <Button symbol="+" id={ product.id } type="add" onClick={ increment } />
+      <Button
+        symbol="-"
+        id={ product.id }
+        type="rm"
+        onClick={ decrement }
+      />
+      <Input
+        type="number"
+        id={ product.id }
+        value={ 0 }
+        data-testid={ `customer_products__input-card-quantity-${product.id}` }
+      />
+      <Button
+        symbol="+"
+        id={ product.id }
+        type="add"
+        onClick={ increment }
+      />
     </div>
   );
 }
