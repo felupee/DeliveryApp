@@ -6,7 +6,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Admin from './pages/Admin';
 import Checkout from './pages/Checkout';
-import StorageProvider from './Provider/StorageProvider';
 
 function App() {
   return (
@@ -14,10 +13,8 @@ function App() {
       <Route path="/" element={ <Navigate to="/login" replace /> } />
       <Route path="/login" element={ <Login /> } />
       <Route path="/register" element={ <Register /> } />
-      <StorageProvider>
-        <Route path="/customer/products" element={ <Customer /> } />
-        <Route path="/customer/checkout" element={ <Checkout /> } />
-      </StorageProvider>
+      <Route path="/customer/products" element={ <Customer /> } />
+      <Route path="/customer/checkout" element={ <Checkout /> } />
       <Route path="/admin/manage" element={ <Admin /> } />
     </Routes>
   );
