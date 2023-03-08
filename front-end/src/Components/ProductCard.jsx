@@ -4,7 +4,7 @@ import Button from './Button';
 import Input from './Input';
 
 function ProductCard({ product }) {
-  const [count, setCount] = React.useState(1);
+  const [count, setCount] = React.useState(0);
 
   const price = parseFloat(product.price);
 
@@ -13,7 +13,7 @@ function ProductCard({ product }) {
   };
 
   const decrement = () => {
-    if (count > 1) {
+    if (count >= 1) {
       setCount(count - 1);
     }
   };
@@ -26,6 +26,8 @@ function ProductCard({ product }) {
     const total = price * +count;
     return total.toFixed(2).toString().replace('.', ',');
   };
+
+  const handleQuantityChange = (e) => setCount(e.target.value);
 
   return (
     <div>
@@ -56,8 +58,8 @@ function ProductCard({ product }) {
       <Input
         type="number"
         id={ product.id }
-        value={ 0 }
-        data-testid={ `customer_products__input-card-quantity-${product.id}` }
+        value={ count }
+        onChange={ handleQuantityChange }
       />
       <Button
         symbol="+"

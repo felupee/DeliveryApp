@@ -16,7 +16,7 @@ Input.propTypes = {
   type: PropTypes.string,
   value: PropTypes.number,
   onChange: PropTypes.func,
-  id: PropTypes.number,
+  dataTestId: PropTypes.string,
 }.isRequired;
 
 export default Input;
