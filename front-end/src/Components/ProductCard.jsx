@@ -20,7 +20,7 @@ function ProductCard({ product }) {
 
   const calculatePrice = () => {
     if (count === 0) {
-      return price;
+      return price.toFixed(2).replace('.', ',');
     }
 
     const total = price * +count;
