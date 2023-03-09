@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import StorageContext from '../Context/StorageContext';
 import Button from './Button';
 import Input from './Input';
-import StorageContext from '../Context/StorageContext';
 
 const NEGATIVE_ONE = -1;
 
@@ -34,8 +34,9 @@ function ProductCard({ product }) {
     return stringifiedPrice;
   };
 
-  const hashItems = () => {
+  const createStorageObject = () => {
     const item = {
+      id: product.id,
       name: product.name,
       quantity: count,
       price: calculatePrice(),
@@ -64,7 +65,7 @@ function ProductCard({ product }) {
 
         setCartStorage(updatedCartStorage);
       } else {
-        setCartStorage((prev) => [...prev, hashItems()]);
+        setCartStorage((prev) => [...prev, createStorageObject()]);
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
