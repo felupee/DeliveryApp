@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import api from '../api';
 import StorageContext from '../Context/StorageContext';
 import MainContext from '../Context/MainContext';
 
@@ -21,10 +22,12 @@ export default function CheckoutDetails({ total }) {
     });
   };
 
+  const navigate = useNavigate();
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:3001/customer/checkout', {
+    api.post('/customer/checkout', {
       userId: cartStorage.id,
       sellerId: orderDetails.seller,
       deliveryAddress: orderDetails.address,
