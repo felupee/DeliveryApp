@@ -5,7 +5,7 @@ import api from '../api';
 import StorageContext from '../Context/StorageContext';
 import MainContext from '../Context/MainContext';
 
-export default function CheckoutDetails({ total }) {
+export default function CheckoutDetails({ totalPrice }) {
   const [orderDetails, setOrderDetails] = useState({
     address: '',
     number: '',
@@ -32,7 +32,7 @@ export default function CheckoutDetails({ total }) {
       sellerId: orderDetails.seller,
       deliveryAddress: orderDetails.address,
       deliveryNumber: orderDetails.number,
-      totalPrice: total,
+      totalPrice,
       status: 'pendente',
       saleProductList: products,
     }).then((response) => {
@@ -93,5 +93,5 @@ export default function CheckoutDetails({ total }) {
 }
 
 CheckoutDetails.propTypes = {
-  total: PropTypes.number.isRequired,
+  totalPrice: PropTypes.number.isRequired,
 };

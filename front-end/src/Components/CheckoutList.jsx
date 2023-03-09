@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CheckoutItem from './CheckoutItem';
 import StorageContext from '../Context/StorageContext';
 
-function CheckoutList({ total }) {
+function CheckoutList({ totalPrice }) {
   const { cartStorage, setCartStorage } = useContext(StorageContext);
   const [itens, setItens] = useState(cartStorage);
 
@@ -42,7 +42,7 @@ function CheckoutList({ total }) {
       <tfoot>
         <tr>
           <th>Total: </th>
-          <td>{total.toFixed(2).replace('.', ',')}</td>
+          <td>{totalPrice.toFixed(2).replace('.', ',')}</td>
         </tr>
       </tfoot>
     </table>
