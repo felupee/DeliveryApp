@@ -7,7 +7,7 @@ import StorageContext from '../Context/StorageContext';
 export default function Checkout() {
   const { cartStorage } = useContext(StorageContext);
   const total = cartStorage.reduce((acc, item) => {
-    const price = parseFloat(item.price.replace(',', '.'));
+    const price = parseFloat(item.price.replace(',', '.')) * item.quantity;
     return acc + price;
   }, 0);
 
