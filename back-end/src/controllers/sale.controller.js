@@ -5,9 +5,7 @@ const create = async (req, res, next) => {
     const { code, data } = await saleService.create(req.body);
     return res.status(code).json(data);
   } catch (error) {
-    // console.log(error.message, 'error');
     next(error);
-    // return res.status(500).json({ error: error.message, stack: error.stack });
   }
 };
 
