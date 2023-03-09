@@ -34,7 +34,6 @@ export default function CheckoutDetails({ total }) {
       saleProductList: products,
     }).then((response) => {
       resetInputs();
-      setStorageData(response.data);
       const { id } = response.data;
       navigate(`/customer/orders/${id}`);
     })
