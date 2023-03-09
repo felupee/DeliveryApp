@@ -19,10 +19,8 @@ function CheckoutList({ totalPrice }) {
   return (
     <table>
       <thead>
+        <tr><th>Finalizar Pedido</th></tr>
         <tr>
-          <th>
-            Finalizar pedido
-          </th>
           <th>Item</th>
           <th>Descrição</th>
           <th>Quantidade</th>
