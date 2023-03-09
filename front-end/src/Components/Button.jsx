@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const rmItem = -1;
+const addItem = 1;
+
 function Button({ symbol, onClick, id, type }) {
+  const handleClick = () => {
+    if (type === 'add') return onClick(id, addItem);
+    if (type === 'rm') return onClick(id, rmItem - 1);
+  };
+
   return (
     <button
       data-testid={ `customer_products__button-card-${type}-item-${id}` }
       type="button"
-      onClick={ onClick }
+      onClick={ handleClick }
     >
       {symbol}
     </button>

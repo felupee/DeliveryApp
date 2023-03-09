@@ -1,18 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import CustomerBottom from '../Components/CustomerBottom';
 import Navbar from '../Components/Navbar';
 import ProductList from '../Components/ProductList';
-import MainContext from '../Context/MainContext';
 
 export default function Customer() {
-  const { products } = useContext(MainContext);
-
   return (
     <>
       <header>
         <Navbar />
       </header>
       <main>
-        <ProductList products={ products } />
+        <ProductList />
+        <CustomerBottom />
       </main>
     </>
   );

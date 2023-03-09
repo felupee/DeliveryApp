@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
+import MainContext from '../Context/MainContext';
 
-function ProductList({ products }) {
+function ProductList() {
+  const { products } = useContext(MainContext);
   return (
     <section>
       { products?.map((product) => (
