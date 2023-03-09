@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import StorageContext from '../Context/StorageContext';
 import MainContext from '../Context/MainContext';
@@ -29,7 +30,8 @@ export default function CheckoutDetails({ total }) {
       deliveryAddress: orderDetails.address,
       deliveryNumber: orderDetails.number,
       totalPrice: total,
-      products,
+      status: 'pendente',
+      saleProductList: products,
     }).then((response) => {
       resetInputs();
       setStorageData(response.data);
@@ -87,3 +89,7 @@ export default function CheckoutDetails({ total }) {
     </section>
   );
 }
+
+CheckoutDetails.propTypes = {
+  total: PropTypes.number.isRequired,
+};
