@@ -12,8 +12,8 @@ function ProductCard({ product }) {
   const { cartStorage, setCartStorage } = useContext(StorageContext);
 
   const price = parseFloat(product.price);
-  const total = price * +count;
-  const stringifiedPrice = total.toFixed(2).toString().replace('.', ',');
+  // const total = price * +count;
+  const stringifiedPrice = price.toFixed(2).toString().replace('.', ',');
 
   const increment = () => {
     setCount(count + 1);
@@ -25,20 +25,20 @@ function ProductCard({ product }) {
     }
   };
 
-  const calculatePrice = () => {
-    if (count === 0) {
-      const newPrice = price.toFixed(2).replace('.', ',');
-      return newPrice;
-    }
+  // const calculatePrice = () => {
+  //   if (count === 0) {
+  //     const newPrice = price.toFixed(2).replace('.', ',');
+  //     return newPrice;
+  //   }
 
-    return stringifiedPrice;
-  };
+  //   return stringifiedPrice;
+  // };
 
   const hashItems = () => {
     const item = {
       name: product.name,
       quantity: count,
-      price: calculatePrice(),
+      price: stringifiedPrice,
     };
     return item;
   };
@@ -55,7 +55,7 @@ function ProductCard({ product }) {
         const updatedItem = {
           ...cartStorage[itemIndex],
           quantity: count,
-          price: calculatePrice(),
+          price: stringifiedPrice,
         };
 
         const updatedCartStorage = [...cartStorage];
@@ -89,7 +89,7 @@ function ProductCard({ product }) {
       >
         <span>
           {' '}
-          {calculatePrice()}
+          {stringifiedPrice}
         </span>
       </p>
       <Button

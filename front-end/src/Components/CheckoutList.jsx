@@ -40,7 +40,9 @@ function CheckoutList({ totalPrice }) {
       <tfoot>
         <tr>
           <th>Total: </th>
-          <td>{totalPrice.toFixed(2).replace('.', ',')}</td>
+          <td data-testid="customer_checkout__element-order-total-price">
+            {totalPrice.toFixed(2).replace('.', ',')}
+          </td>
         </tr>
       </tfoot>
     </table>
