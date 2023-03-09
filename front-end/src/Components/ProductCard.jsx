@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
 import Input from './Input';
+import StorageContext from '../Context/StorageContext';
+
+const NEGATIVE_ONE = -1;
 
 function ProductCard({ product }) {
   const [count, setCount] = React.useState(0);
 
+  const { cartStorage, setCartStorage } = useContext(StorageContext);
+
   const price = parseFloat(product.price);
+  const total = price * +count;
+  const stringifiedPrice = total.toFixed(2).toString().replace('.', ',');
 
   const increment = () => {
     setCount(count + 1);
@@ -20,12 +27,48 @@ function ProductCard({ product }) {
 
   const calculatePrice = () => {
     if (count === 0) {
-      return price;
+      const newPrice = price.toFixed(2).replace('.', ',');
+      return newPrice;
     }
 
-    const total = price * +count;
-    return total.toFixed(2).toString().replace('.', ',');
+    return stringifiedPrice;
   };
+
+  const hashItems = () => {
+    const item = {
+      name: product.name,
+      quantity: count,
+      price: calculatePrice(),
+    };
+    return item;
+  };
+
+  useEffect(() => {
+    if (count === 0) {
+      const filtered = cartStorage.filter((item) => item.name !== product.name);
+
+      setCartStorage(filtered);
+    } else {
+      const itemIndex = cartStorage.findIndex((item) => item.name === product.name);
+
+      if (itemIndex !== NEGATIVE_ONE) {
+        const updatedItem = {
+          ...cartStorage[itemIndex],
+          quantity: count,
+          price: calculatePrice(),
+        };
+
+        const updatedCartStorage = [...cartStorage];
+
+        updatedCartStorage[itemIndex] = updatedItem;
+
+        setCartStorage(updatedCartStorage);
+      } else {
+        setCartStorage((prev) => [...prev, hashItems()]);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count]);
 
   const handleQuantityChange = (e) => setCount(e.target.value);
 

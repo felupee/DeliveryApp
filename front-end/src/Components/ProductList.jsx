@@ -4,10 +4,10 @@ import ProductCard from './ProductCard';
 import MainContext from '../Context/MainContext';
 
 function ProductList() {
-  const context = useContext(MainContext);
+  const { products } = useContext(MainContext);
   return (
     <section>
-      { context.products?.map((product) => (
+      { products?.map((product) => (
         <div key={ product.id }>
           <ProductCard product={ product } />
         </div>
