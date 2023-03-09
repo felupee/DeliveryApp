@@ -10,11 +10,11 @@ import App from './App';
 ReactDOM.render(
   <React.StrictMode>
     <MainProvider>
-      <Router>
-        <StorageProvider>
+      <StorageProvider>
+        <Router>
           <App />
-        </StorageProvider>
-      </Router>
+        </Router>
+      </StorageProvider>
     </MainProvider>
   </React.StrictMode>,
   document.getElementById('root'),
