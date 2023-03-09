@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
-import './ProductList.css';
 import MainContext from '../Context/MainContext';
 
 function ProductList() {
