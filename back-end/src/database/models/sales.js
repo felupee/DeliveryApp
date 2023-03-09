@@ -41,15 +41,23 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     }
   }, {
+    timestamps: false,
     sequelize,
-    modelName: 'Sales',
+    tableName: 'sales',
+    underscored: true
   });
 
   Sales.associate = (models) => {
     Sales.belongsTo(models.User, 
-      { as: 'User', foreignKey: 'userId' },
-      { as: 'User', foreignKey: 'sellerId' },
+      { as: 'user', foreignKey: 'userId' },
       );
+      Sales.belongsTo(models.User, 
+        { as: 'seller', foreignKey: 'sellerId' },
+      );
+    // Sales.hasMany(models.SalesProducts, 
+    //   { as: 'salesProducts', foreignKey: 'saleId'
+    // });
+    
   };
 
   return Sales;
