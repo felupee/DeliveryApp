@@ -18,7 +18,7 @@ app.use('/login', loginRoute);
 app.use('/products', productRoute);
 app.use('/register', registerRoute);
 app.use('/admin/manage', adminRoute);
-app.use('/sales', saleRoute);
+app.use('/', saleRoute);
 
 app.use('/images', express.static('public/images'));
 app.use(errorMiddleware);

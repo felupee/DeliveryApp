@@ -12,7 +12,7 @@ export default function CheckoutDetails({ totalPrice }) {
     seller: '',
   });
   const { cartStorage } = useContext(StorageContext);
-  const { products } = useContext(MainContext);
+  const { products, storageData } = useContext(MainContext);
 
   const resetInputs = () => {
     setOrderDetails({
@@ -30,15 +30,19 @@ export default function CheckoutDetails({ totalPrice }) {
     api.post('/customer/checkout', {
       userId: cartStorage.id,
       sellerId: orderDetails.seller,
+      totalPrice,
       deliveryAddress: orderDetails.address,
       deliveryNumber: orderDetails.number,
-      totalPrice,
       status: 'pendente',
       saleProductList: products,
+    }, {
+      headers: {
+        Authorization: storageData.token,
+      },
     }).then((response) => {
       resetInputs();
       const { id } = response.data;
-      navigate(`/customer/orders/${id}`);
+      navigate(`/customer/checkout/${id}`);
     })
       .catch((error) => {
         console.log(error);
