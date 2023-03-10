@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../api';
 
 export default function ClientOrders() {
@@ -15,7 +16,7 @@ export default function ClientOrders() {
   return (
     <div>
       {sales.map((item) => (
-        <div key={ item.id }>
+        <Link key={ item.id } to={ `customer/orders/${item.id}` }>
           <p
             data-testid={ `customer_orders__element-order-id-${item.id}` }
           >
@@ -36,7 +37,8 @@ export default function ClientOrders() {
           >
             {item.totalPrice.replace('.', ',')}
           </p>
-        </div>
+
+        </Link>
 
       ))}
     </div>
