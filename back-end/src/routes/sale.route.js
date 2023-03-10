@@ -4,7 +4,7 @@ const { auth } = require('../middlewares/auth');
 
 const router = Router();
 
-router.post('/customer/checkout', auth, saleController.create);
+router.post('/', auth, saleController.create);
 router.get('/customer/:id', saleController.getCustomerId);
 router.get('/details/:id', saleController.getSaleById);
 
