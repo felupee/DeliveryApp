@@ -10,31 +10,34 @@ export default function ClientOrders() {
       .catch((err) => console.log(err.message));
   }, []);
 
+  const formatDate = (date) => new Date(date).toLocaleDateString('pt-br');
+
   return (
     <div>
       {sales.map((item) => (
-        <div
-          key={ item.id }
-          data-testid={ `customer_orders__element-order-id-${item.id}` }
-        >
-          <div>
-            <span
-              data-testid={ `customer_orders__element-delivery-status-${item.id}` }
-            >
-              {item.status}
-            </span>
-            <span
-              data-testid={ `customer_orders__element-order-date-${item.id}` }
-            >
-              {item.saleDate}
-            </span>
-            <span
-              data-testid={ `customer_orders__element-card-price-${item.id}` }
-            >
-              {item.totalPrice}
-            </span>
-          </div>
+        <div key={ item.id }>
+          <p
+            data-testid={ `customer_orders__element-order-id-${item.id}` }
+          >
+            {item.id}
+          </p>
+          <p
+            data-testid={ `customer_orders__element-delivery-status-${item.id}` }
+          >
+            {item.status}
+          </p>
+          <p
+            data-testid={ `customer_orders__element-order-date-${item.id}` }
+          >
+            {formatDate(item.saleDate)}
+          </p>
+          <p
+            data-testid={ `customer_orders__element-card-price-${item.id}` }
+          >
+            {item.totalPrice.replace('.', ',')}
+          </p>
         </div>
+
       ))}
     </div>
   );
