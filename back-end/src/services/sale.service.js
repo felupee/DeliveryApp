@@ -48,8 +48,14 @@ const getSaleById = async (saleId) => {
   return { code: 200, data: sale };
 };
 
+const getSellerId = async (sellerId) => {
+  const salesSeller = await Sales.findAll({ where: { sellerId } });
+  return { code: 200, data: salesSeller };
+}; 
+
 module.exports = { 
   create,
   getCustomerId,
   getSaleById,
+  getSellerId,
 };
