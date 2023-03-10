@@ -55,8 +55,8 @@ const getSellerId = async (sellerId) => {
 
 const getAll = async () => {
   const data = await Sales.findAll();
-  return { code: 200, data }
-}
+  return { code: 200, data };
+};
 
 module.exports = { 
   create,
