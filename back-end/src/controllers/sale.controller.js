@@ -3,7 +3,7 @@ const saleService = require('../services/sale.service');
 const create = async (req, res, next) => {
   try {
     const { code, data } = await saleService.create(req.body);
-    return res.status(code).json({id: data});
+    return res.status(code).json({ id: data });
   } catch (error) {
     next(error);
   }
