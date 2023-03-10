@@ -3,11 +3,9 @@ const saleService = require('../services/sale.service');
 const create = async (req, res, next) => {
   try {
     const { code, data } = await saleService.create(req.body);
-    return res.status(code).json(data);
+    return res.status(code).json({ id: data });
   } catch (error) {
-    // console.log(error.message, 'error');
     next(error);
-    // return res.status(500).json({ error: error.message, stack: error.stack });
   }
 };
 

@@ -12,7 +12,7 @@ export default function CheckoutDetails({ totalPrice }) {
     seller: '',
   });
   const { cartStorage } = useContext(StorageContext);
-  const { products } = useContext(MainContext);
+  const { storageData } = useContext(MainContext);
 
   const resetInputs = () => {
     setOrderDetails({
@@ -21,20 +21,31 @@ export default function CheckoutDetails({ totalPrice }) {
       seller: '',
     });
   };
+  const saleProductList = cartStorage.map((item) => {
+    const obj = {
+      productId: item.productId,
+      quantity: item.quantity,
+    };
+    return obj;
+  });
 
   const navigate = useNavigate();
-
   const handleRegister = async (e) => {
     e.preventDefault();
+    console.log(totalPrice);
 
     api.post('/customer/checkout', {
-      userId: cartStorage.id,
-      sellerId: orderDetails.seller,
+      userId: storageData.userId,
+      sellerId: 2,
+      totalPrice,
       deliveryAddress: orderDetails.address,
       deliveryNumber: orderDetails.number,
-      totalPrice,
-      status: 'pendente',
-      saleProductList: products,
+      status: 'Pendente',
+      saleProductList,
+    }, {
+      headers: {
+        Authorization: storageData.token,
+      },
     }).then((response) => {
       resetInputs();
       const { id } = response.data;

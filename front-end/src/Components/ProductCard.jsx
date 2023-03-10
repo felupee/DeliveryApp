@@ -36,7 +36,7 @@ function ProductCard({ product }) {
 
   const createStorageObject = () => {
     const item = {
-      id: product.id,
+      productId: product.id,
       name: product.name,
       quantity: count,
       price: stringifiedPrice,

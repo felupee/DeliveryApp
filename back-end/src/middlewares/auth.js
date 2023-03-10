@@ -4,7 +4,7 @@ const { secret } = require('../auth/jwt');
 
 const auth = (req, _res, next) => {
   const token = req.headers.authorization;
-  
+  console.log(req);
   if (!token) throw new CustomError('Token not found', 404);
 
   try {
