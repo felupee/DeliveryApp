@@ -34,7 +34,7 @@ export default function CheckoutDetails({ totalPrice }) {
     e.preventDefault();
     console.log(totalPrice);
 
-    api.post('/customer/checkout', {
+    api.post('/sales', {
       userId: storageData.userId,
       sellerId: 2,
       totalPrice,
