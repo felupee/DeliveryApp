@@ -9,11 +9,14 @@ const postLogin = async (login) => {
     const passwordValidation = (userExists.password === md5(password));
     if (!passwordValidation) return { code: 404 };
     const token = tokenCreation({ email });
-    return { code: 200, result: { 
-      userId: userExists.id, 
-      name: userExists.name, 
-      email, role: userExists.role, 
-      token, 
+    return { 
+      code: 200, 
+      result: { 
+        userId: userExists.id, 
+        name: userExists.name, 
+        email, 
+        role: userExists.role, 
+        token, 
     } };
 };
 
