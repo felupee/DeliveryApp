@@ -1,33 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../api';
 
-import StorageContext from '../Context/StorageContext';
 import formatDate from '../utils/date.utils';
 
 export default function OrderDetails() {
   const [sale, setSale] = useState({});
 
   const { id } = useParams();
-  const { cartStorage } = useContext(StorageContext);
 
-  const getSales = async () => {
+  const getSale = async () => {
     const response = await api.get(`/sales/details/${id}`);
     setSale(response.data);
   };
 
   useEffect(() => {
     const getData = async () => {
-      await getSales();
+      await getSale();
     };
 
     getData();
   }, []);
-
-  const total = cartStorage.reduce((acc, item) => {
-    const price = (parseFloat(item.price.replace(',', '.')) * item.quantity);
-    return acc + price;
-  }, 0);
 
   return (
     <section>
@@ -71,24 +64,24 @@ export default function OrderDetails() {
           </tr>
         </thead>
         <tbody>
-          {cartStorage.map((item, index) => {
-            const subtotal = parseFloat(item.price.replace(',', '.')) * item.quantity;
+          {sale?.products?.map((item, index) => {
+            const subtotal = item.price * item.SalesProducts.quantity;
             return (
-              <tr key={ index }>
+              <tr key={ item.SalesProducts.productId }>
                 <td>
                   {index + 1}
                 </td>
                 <td>
-                  {item.name}
+                  { item.name }
                 </td>
                 <td>
-                  {item.quantity}
+                  { item.SalesProducts.quantity }
                 </td>
                 <td>
-                  {item.price}
+                  { item.price.toString().replace('.', ',') }
                 </td>
                 <td>
-                  { subtotal.toFixed(2).replace('.', ',') }
+                  { subtotal.toFixed(2).toString().replace('.', ',') }
                 </td>
               </tr>
             );
@@ -99,7 +92,7 @@ export default function OrderDetails() {
         <p
           data-testid="customer_order_details__element-order-total-price"
         >
-          {total.toFixed(2).replace('.', ',')}
+          {sale?.totalPrice?.toString().replace('.', ',')}
         </p>
       </div>
     </section>

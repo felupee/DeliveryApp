@@ -1,12 +1,10 @@
-import { useContext, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api';
-import MainContext from '../Context/MainContext';
 import formatDate from '../utils/date.utils';
 
 export default function ClientOrders() {
-  // const [sales, setSales] = useState([]);
-  const { sales, setSales } = useContext(MainContext);
+  const [sales, setSales] = useState([]);
 
   useEffect(() => {
     api.get('/sales')
@@ -17,7 +15,10 @@ export default function ClientOrders() {
   return (
     <div>
       {sales.map((item) => (
-        <Link key={ item.id } to={ `/customer/orders/${item.id}` }>
+        <Link
+          key={ item.id }
+          to={ `/customer/orders/${item.id}` }
+        >
           <p
             data-testid={ `customer_orders__element-order-id-${item.id}` }
           >
