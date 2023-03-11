@@ -56,6 +56,7 @@ export default function OrderDetails() {
       <button
         type="button"
         data-testid="customer_order_details__button-delivery-check"
+        disabled
       >
         Marcar como entregue
       </button>
