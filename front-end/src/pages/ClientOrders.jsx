@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api';
 import MainContext from '../Context/MainContext';
+import formatDate from '../utils/date.utils';
 
 export default function ClientOrders() {
   // const [sales, setSales] = useState([]);
@@ -13,12 +14,10 @@ export default function ClientOrders() {
       .catch((err) => console.log(err.message));
   }, []);
 
-  const formatDate = (date) => new Date(date).toLocaleDateString('pt-br');
-
   return (
     <div>
       {sales.map((item) => (
-        <Link key={ item.id } to={ `customer/orders/${item.id}` }>
+        <Link key={ item.id } to={ `/customer/orders/${item.id}` }>
           <p
             data-testid={ `customer_orders__element-order-id-${item.id}` }
           >
