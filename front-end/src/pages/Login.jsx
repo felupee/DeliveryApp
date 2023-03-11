@@ -53,7 +53,9 @@ function Login() {
       });
       setStorageData(response.data);
       const { role } = response.data;
-      navigate(role === 'administrator' ? '/admin/manage' : '/customer/products');
+      if (role === 'seller') navigate('/seller/orders');
+      if (role === 'administrator') navigate('/admin/manage');
+      if (role === 'customer') navigate('/customer/products');
     } catch (error) {
       console.log(error.message);
       setIsUserValid(false);

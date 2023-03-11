@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api';
+import Navbar from '../Components/Navbar';
 import formatDate from '../utils/date.utils';
 
 export default function ClientOrders() {
@@ -13,36 +14,41 @@ export default function ClientOrders() {
   }, []);
 
   return (
-    <div>
-      {sales.map((item) => (
-        <Link
-          key={ item.id }
-          to={ `/customer/orders/${item.id}` }
-        >
-          <p
-            data-testid={ `customer_orders__element-order-id-${item.id}` }
+    <>
+      <header>
+        <Navbar />
+      </header>
+      <main>
+        {sales.map((item) => (
+          <Link
+            key={ item.id }
+            to={ `/customer/orders/${item.id}` }
           >
-            {item.id}
-          </p>
-          <p
-            data-testid={ `customer_orders__element-delivery-status-${item.id}` }
-          >
-            {item.status}
-          </p>
-          <p
-            data-testid={ `customer_orders__element-order-date-${item.id}` }
-          >
-            {formatDate(item.saleDate)}
-          </p>
-          <p
-            data-testid={ `customer_orders__element-card-price-${item.id}` }
-          >
-            {item.totalPrice.replace('.', ',')}
-          </p>
+            <p
+              data-testid={ `customer_orders__element-order-id-${item.id}` }
+            >
+              {item.id}
+            </p>
+            <p
+              data-testid={ `customer_orders__element-delivery-status-${item.id}` }
+            >
+              {item.status}
+            </p>
+            <p
+              data-testid={ `customer_orders__element-order-date-${item.id}` }
+            >
+              {formatDate(item.saleDate)}
+            </p>
+            <p
+              data-testid={ `customer_orders__element-card-price-${item.id}` }
+            >
+              {item.totalPrice.replace('.', ',')}
+            </p>
 
-        </Link>
+          </Link>
 
-      ))}
-    </div>
+        ))}
+      </main>
+    </>
   );
 }
