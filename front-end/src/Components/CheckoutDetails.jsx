@@ -32,9 +32,8 @@ export default function CheckoutDetails({ totalPrice }) {
   const navigate = useNavigate();
   const handleRegister = async (e) => {
     e.preventDefault();
-    console.log(totalPrice);
 
-    api.post('/customer/checkout', {
+    api.post('/sales', {
       userId: storageData.userId,
       sellerId: 2,
       totalPrice,

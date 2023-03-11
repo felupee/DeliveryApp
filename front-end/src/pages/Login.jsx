@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import api from '../api';
 
 import MainContext from '../Context/MainContext';
+// import StorageContext from '../Context/StorageContext';
 
 const minPwdLength = 6;
 
@@ -19,8 +20,23 @@ function Login() {
   const [isUserValid, setIsUserValid] = useState(true);
 
   const { isEmailValid, setStorageData } = useContext(MainContext);
+  // const { storageData } = useContext(StorageContext);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // console.log(storageData);
+    const res = JSON.parse(localStorage.getItem('user'));
+    const token = res || null;
+
+    if (token) {
+      navigate('/customer/products');
+    }
+    // if (storageData.token) {
+    //   navigate('/customer/products');
+    // }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const resetInputs = () => {
     setEmail({ hasChanged: false, value: '' });
@@ -37,7 +53,9 @@ function Login() {
       });
       setStorageData(response.data);
       const { role } = response.data;
-      navigate(role === 'administrator' ? '/admin/manage' : '/customer/products');
+      if (role === 'seller') navigate('/seller/orders');
+      if (role === 'administrator') navigate('/admin/manage');
+      if (role === 'customer') navigate('/customer/products');
     } catch (error) {
       console.log(error.message);
       setIsUserValid(false);
