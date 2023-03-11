@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api';
+import MainContext from '../Context/MainContext';
 
 export default function ClientOrders() {
-  const [sales, setSales] = useState([]);
+  // const [sales, setSales] = useState([]);
+  const { sales, setSales } = useContext(MainContext);
 
   useEffect(() => {
     api.get('/sales')

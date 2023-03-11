@@ -8,6 +8,7 @@ function MainProvider({ children }) {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [storageData, setStorageData] = useLocalStorage('user', '');
+  const [sales, setSales] = useState([]);
 
   const isEmailValid = (em) => /\S+@\S+\.\S+/.test(em);
 
@@ -26,6 +27,8 @@ function MainProvider({ children }) {
     setProducts,
     storageData,
     setStorageData,
+    sales,
+    setSales,
     isEmailValid,
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [users, products, storageData]);
