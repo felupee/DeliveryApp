@@ -1,14 +1,14 @@
 import Navbar from '../Components/Navbar';
 import OrderDetailsCard from '../Components/OrderDetailsCard';
 
-export default function OrderDetails() {
+export default function SellerOrderDetails() {
   return (
     <>
       <header>
         <Navbar />
       </header>
       <section>
-        <OrderDetailsCard userRole="customer" />
+        <OrderDetailsCard userRole="seller" />
       </section>
     </>
   );

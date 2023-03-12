@@ -16,7 +16,7 @@ export default function OrdersList() {
       {sales.map((item) => (
         <Link
           key={ item.id }
-          to={ `/customer/orders/${item.id}` }
+          to={ `/seller/orders/${item.id}` }
         >
           <p
             data-testid={ `seller_orders__element-order-id-${item.id}` }

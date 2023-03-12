@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import api from '../api';
 import formatDate from '../utils/date.utils';
 
-export default function OrderDetailsCard() {
+export default function OrderDetailsCard({ userRole }) {
   const [sale, setSale] = useState({});
 
   const { id } = useParams();
@@ -25,34 +26,56 @@ export default function OrderDetailsCard() {
   return (
     <div>
       <p
-        data-testid="customer_order_details__element-order-details-label-order-id"
+        data-testid={ `${userRole}_order_details__element-order-details-label-order-id` }
       >
         {sale?.id}
       </p>
+      {userRole === 'customer' ? (
+        <p
+          data-testid="customer_order_details__element-order-details-label-seller-name"
+        >
+          {sale?.seller?.name}
+        </p>)
+        : (
+          <button
+            type="button"
+            data-testid="seller_order_details__button-preparing-check"
+          >
+            Preparar
+          </button>
+
+        )}
       <p
-        data-testid="customer_order_details__element-order-details-label-seller-name"
-      >
-        {sale?.seller?.name}
-      </p>
-      <p
-        data-testid="customer_order_details__element-order-details-label-order-date"
+        data-testid={
+          `${userRole}_order_details__element-order-details-label-order-date`
+        }
       >
         { formatDate(sale?.saleDate) }
       </p>
       <p
         data-testid={
-          `customer_order_details__element-order-details-label-delivery-status${id}`
+          `${userRole}_order_details__element-order-details-label-delivery-status${id}`
         }
       >
         { sale?.status }
       </p>
-      <button
-        type="button"
-        data-testid="customer_order_details__button-delivery-check"
-        disabled
-      >
-        Marcar como entregue
-      </button>
+      {(userRole === 'customer') ? (
+        <button
+          type="button"
+          data-testid={ `${userRole}_order_details__button-delivery-check` }
+          disabled
+        >
+          Marcar como entregue
+        </button>
+      ) : (
+        <button
+          type="button"
+          data-testid={ `${userRole}_order_details__button-dispatch-check` }
+          disabled
+        >
+          Saiu para entrega
+        </button>
+      )}
       <table>
         <thead>
           <tr>
@@ -90,7 +113,7 @@ export default function OrderDetailsCard() {
       </table>
       <div>
         <p
-          data-testid="customer_order_details__element-order-total-price"
+          data-testid={ `${userRole}_order_details__element-order-total-price` }
         >
           {sale?.totalPrice?.toString().replace('.', ',')}
         </p>
@@ -98,3 +121,7 @@ export default function OrderDetailsCard() {
     </div>
   );
 }
+
+OrderDetailsCard.propTypes = {
+  userRole: PropTypes.string.isRequired,
+};
