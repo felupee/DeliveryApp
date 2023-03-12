@@ -62,7 +62,7 @@ export default function OrderDetailsCard({ userRole }) {
       {(userRole === 'customer') ? (
         <button
           type="button"
-          data-testid={ `${userRole}_order_details__button-delivery-check` }
+          data-testid="customer_order_details__button-delivery-check"
           disabled
         >
           Marcar como entregue
@@ -70,7 +70,7 @@ export default function OrderDetailsCard({ userRole }) {
       ) : (
         <button
           type="button"
-          data-testid={ `${userRole}_order_details__button-dispatch-check` }
+          data-testid="seller_order_details__button-dispatch-check"
           disabled
         >
           Saiu para entrega
